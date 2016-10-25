@@ -65,6 +65,7 @@ public class Article implements Serializable {
     private static String lastQuery;
     private static String filterOrder = "newest";
     private static String filterDate = "";
+    private static String filterCategory = "";
 
 
     public static ArrayList<Article> getArticleArrayList() {
@@ -79,6 +80,10 @@ public class Article implements Serializable {
         filterDate = date.toString();
     }
 
+    public static void setFilterCategory(String category) {
+        filterCategory = category.toString();
+    }
+
     public static ArrayList<Article> fetchArticlePageFirst(boolean refresh, final SearchActivity context, final String query) {
 
         lastQuery = query;
@@ -89,6 +94,8 @@ public class Article implements Serializable {
         params.put("sort", filterOrder);
         if(!filterDate.isEmpty())
             params.put("begin_date", filterDate);
+        if(!filterCategory.isEmpty())
+            params.put("fq", filterCategory);
         params.put("page", 0);
 
         Log.d("DEBUG", "sup: fetchArticlePageFirst Called");
@@ -148,6 +155,8 @@ public class Article implements Serializable {
         params.put("sort", filterOrder);
         if(!filterDate.isEmpty())
             params.put("begin_date", filterDate);
+        if(!filterCategory.isEmpty())
+            params.put("fq", filterCategory);
         params.put("page", page);
 
 

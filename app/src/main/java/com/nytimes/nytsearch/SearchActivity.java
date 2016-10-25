@@ -1,6 +1,7 @@
 package com.nytimes.nytsearch;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -35,6 +37,12 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
     Button btnSearch;
     Spinner spSorter;
     TextView tvDPLauncher;
+    CheckBox cbArt;
+    CheckBox cbFashion;
+    CheckBox cbSports;
+    CheckBox cbEducation;
+    CheckBox cbHealth;
+    Dialog settingsDialog;
 
     ArrayList<Article> articles = Article.getArticleArrayList();
     private EndlessRecyclerViewScrollListener scrollListener;
@@ -92,6 +100,15 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
 
             }
         });
+
+        settingsDialog = new Dialog(this);
+        settingsDialog.setTitle("Choose Advanced Filters");
+        settingsDialog.setContentView(R.layout.fragment_settings);
+        cbArt = (CheckBox) settingsDialog.findViewById(R.id.cbArt);
+        cbFashion = (CheckBox) settingsDialog.findViewById(R.id.cbFashion);
+        cbSports = (CheckBox) settingsDialog.findViewById(R.id.cbSports);
+        cbEducation = (CheckBox) settingsDialog.findViewById(R.id.cbEducation);
+        cbHealth = (CheckBox) settingsDialog.findViewById(R.id.cbHealth);
     }
 
     public void onArticleSearch(View view) {
@@ -191,12 +208,52 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Log.d("DEBUG", "sup: clicked on settings");
+            showSettingsDialog();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showSettingsDialog() {
+
+        Button onSubmitDialog = (Button) settingsDialog.findViewById(R.id.btnSubmit);
+        onSubmitDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StringBuilder filterString = new StringBuilder();
+                filterString.append("news_desk:(");
+                settingsDialog.dismiss();
+                if(cbArt.isChecked()) {
+                    Log.d("DEBUG", "Art");
+                    filterString.append("\"Art\" ");
+                }
+                if(cbFashion.isChecked()) {
+                    Log.d("DEBUG", "Fashion");
+                    filterString.append("\"Fashion\" ");
+
+                }
+                if(cbSports.isChecked()) {
+                    Log.d("DEBUG", "Sports");
+                    filterString.append("\"Sports\" ");
+                }
+                if(cbEducation.isChecked()) {
+                    Log.d("DEBUG", "Education");
+                    filterString.append("\"Education\" ");
+                }
+                if(cbHealth.isChecked()) {
+                    Log.d("DEBUG", "Health");
+                    filterString.append("\"Health\" ");
+                }
+                filterString.append(")");
+                Log.d("DEBUG", "sup: final string: " + filterString.toString());
+                Article.setFilterCategory(filterString.toString());
+            }
+        });
+
+        settingsDialog.show();
     }
 }
