@@ -49,7 +49,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://www.youtube.com/watch?v=lgFE2yP5bSQ' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://youtu.be/lgFE2yP5bSQ' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with Youtube
 
