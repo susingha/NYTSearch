@@ -49,7 +49,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-[Video Walkthrough](https://www.youtube.com/watch?v=lgFE2yP5bSQ) created with [Youtube](https://www.youtube.com/watch?v=lgFE2yP5bSQ)
+[Video Walkthrough - Updated Link With Requred User Stories](https://www.youtube.com/watch?v=rXod9uMpMVc) created with [Youtube](https://www.youtube.com/watch?v=rXod9uMpMVc)
 
 ## Notes
 
